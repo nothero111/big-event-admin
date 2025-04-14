@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/index.js'
 // import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
@@ -33,6 +34,18 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+// vue3 默认情况是直接通行
+// 根据返回值决定，是放行还是拦截
+// true/undefined才会放行
+// false 回from的地址
+// 具体路径 或 路径对象拦截到对应地址
+router.beforeEach((to) => {
+  // 如果没有token，且访问的是非登录页，拦截到登录
+  // 其他情况放行
+  const useStore = useUserStore()
+  if (!useStore.token && to.path !== '/login') return '/login'
 })
 
 export default router
