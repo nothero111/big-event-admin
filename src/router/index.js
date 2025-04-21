@@ -9,10 +9,10 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/views/layout/LayoutContainer.vue'),
-      redirect: '/article/mange',
+      redirect: '/article/manage',
       children: [
         {
-          path: '/article/mange',
+          path: '/article/manage',
           component: () => import('@/views/article/ArticleMange.vue')
         },
         {

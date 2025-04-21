@@ -8,6 +8,9 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    host: '0.0.0.0' // 确保此处没有设置为 'localhost'
+  },
   plugins: [
     vue(),
     vueDevTools(),

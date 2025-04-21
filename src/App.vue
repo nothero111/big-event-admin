@@ -1,10 +1,11 @@
 <script setup>
-// import NiHao from '@/components/NiHao.vue'
-// import router from '@/router/index.js'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 </script>
 
 <template>
-  <router-view></router-view>
+  <el-config-provider :locale="zhCn">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
 
 <style scoped></style>
