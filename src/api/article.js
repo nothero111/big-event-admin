@@ -30,3 +30,21 @@ export const artGetListService = (params) => {
     }
   })
 }
+
+// 添加文章
+// data需要是一个formData对象
+export const artPublishService = (data) => request.post('/my/article/add', data)
+
+// 获取文章详情
+export const artGetDetailService = (id) => {
+  return request.get('/my/article/info', {
+    params: {
+      id
+    }
+  })
+}
+
+// 编辑文章
+export const artEditService = (data) => {
+  return request.put('/my/article/info', data)
+}

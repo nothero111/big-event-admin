@@ -5,12 +5,15 @@ import { Delete, Edit } from '@element-plus/icons-vue'
 import ChannelSelect from '@/views/article/components/ChannelSelect.vue'
 import { artGetListService } from '@/api/article.js'
 import { formatTime } from '@/utils/format.js'
+import ArticleEdit from '@/views/article/components/ArticleEdit.vue'
+
 const params = ref({
   pagenum: 1, // 当前页
   pagesize: 5, // 当前生效页条数
   cate_id: '',
   state: ''
 })
+const articleEditRef = ref()
 const articleList = ref([123])
 const total = ref(0) // 默认总条数为0
 const loading = ref(false) // 默认加载状态为false
@@ -24,9 +27,9 @@ const getArticleList = async () => {
   loading.value = false
 }
 getArticleList()
-const onEditArticle = (row) => {
-  console.log(row)
-}
+// const onEditArticle = (row) => {
+//   console.log(row)
+// }
 const onDeleteArticle = (row) => {
   console.log(row)
 }
@@ -57,11 +60,32 @@ const onReset = () => {
   params.value.state = ''
   getArticleList()
 }
+
+// 控制抽屉显示隐藏
+const onAddArticle = () => {
+  articleEditRef.value.open({})
+}
+const onEditArticle = (row) => {
+  articleEditRef.value.open(row)
+}
+
+// 添加或者编辑成功的回调
+
+const onsuccess = (type) => {
+  if (type === 'add') {
+    params.value.pagenum = Math.ceil((total.value + 1) / params.value.pagesize)
+  }
+  getArticleList()
+}
 </script>
 
 <template>
   <page-container title="文章分类">
-    <template #extra><el-button> 添加文章 </el-button></template>
+    <template #extra
+      ><el-button type="primary" @click="onAddArticle">
+        添加文章
+      </el-button></template
+    >
     <!--    表单区域-->
     <el-form inline>
       <el-form-item label="文章分类：">
@@ -124,6 +148,8 @@ const onReset = () => {
       :total="articleList.length"
       style="margin-top: 20px; justify-content: flex-end"
     />
+    <!--    抽屉-->
+    <article-edit ref="articleEditRef" @success="onsuccess"></article-edit>
   </page-container>
 </template>
 

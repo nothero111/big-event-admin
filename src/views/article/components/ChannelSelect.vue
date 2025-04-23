@@ -10,7 +10,8 @@ getChannelList()
 defineProps({
   modelValue: {
     type: [Number, String]
-  }
+  },
+  width: { type: String }
 })
 const emit = defineEmits(['update:modelValue'])
 </script>
@@ -19,6 +20,7 @@ const emit = defineEmits(['update:modelValue'])
   <el-select
     :modelValue="modelValue"
     @update:modelValue="emit('update:modelValue', $event)"
+    :width="width"
   >
     <!--           label是展示给用户，value提交到后台-->
     <el-option
